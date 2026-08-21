@@ -55,7 +55,8 @@
     font-weight:500;
     display:inline-flex; align-items:center; gap:12px;
   }
-  .eyebrow svg{ width:12px; height:12px; opacity:0.8; }
+  .eyebrow svg{ width:12px; height:12px; opacity:0.8; animation:spin-slow 9s linear infinite; }
+  @keyframes spin-slow{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
 
   .title{
     font-family:'Cinzel', serif;
@@ -84,6 +85,22 @@
   .reveal.delay-2{ transition-delay:0.26s; }
   .reveal.delay-3{ transition-delay:0.4s; }
 
+  .rose-medallion.reveal, .dress-banner.reveal, .footer-photo.reveal{ transform:translateY(22px) scale(0.82); transition:opacity 1.05s cubic-bezier(.2,.7,.2,1), transform 1.05s cubic-bezier(.2,.7,.2,1); }
+  .rose-medallion.reveal.in-view, .dress-banner.reveal.in-view, .footer-photo.reveal.in-view{ transform:translateY(0) scale(1); }
+
+  /* ---------- petals ---------- */
+  .petals{ position:absolute; inset:0; overflow:hidden; z-index:1; pointer-events:none; }
+  .petal{
+    position:absolute; top:-8%; width:9px; height:13px; background:var(--rose-line);
+    border-radius:60% 4% 60% 4%; opacity:0; animation:fall linear infinite;
+  }
+  @keyframes fall{
+    0%{ opacity:0; transform:translateY(-10%) translateX(0) rotate(0deg); }
+    8%{ opacity:0.6; }
+    88%{ opacity:0.35; }
+    100%{ opacity:0; transform:translateY(720%) translateX(var(--drift,24px)) rotate(300deg); }
+  }
+
   /* ---------- progress rail ---------- */
   .progress-rail{ position:fixed; top:0; left:0; height:2px; width:100%; background:rgba(156,28,40,0.18); z-index:50; }
   .progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--crimson-600),var(--rose-line)); transition:width 0.08s linear; }
@@ -104,7 +121,8 @@
   .torn{ position:absolute; left:0; width:100%; height:44px; line-height:0; z-index:2; }
   .torn.top{ top:-1px; }
   .torn.bottom{ bottom:-1px; transform:scaleY(-1); }
-  .torn svg{ width:100%; height:100%; display:block; }
+  .torn svg{ width:100%; height:100%; display:block; animation:paper-sway 5s ease-in-out infinite; }
+  @keyframes paper-sway{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
 
   /* ---------- rose line-art (signature accents) ---------- */
   .rose{ width:64px; height:64px; }
@@ -120,8 +138,9 @@
     mask-image:radial-gradient(circle at center, black 34%, transparent 70%);
     opacity:0.9; pointer-events:none; z-index:-1;
   }
-  .photo-accent.tl{ top:-36px; left:-40px; }
-  .photo-accent.br{ bottom:-36px; right:-40px; }
+  .photo-accent.tl{ top:-36px; left:-40px; animation:breathe 7s ease-in-out infinite; }
+  .photo-accent.br{ bottom:-36px; right:-40px; animation:breathe 7s ease-in-out infinite 1s; }
+  @keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.07); } }
 
   .rose-medallion{
     width:118px; height:118px; border-radius:50%; background-size:cover; background-position:center 35%;
@@ -147,12 +166,25 @@
   /* ---------- hero ---------- */
   .hero{
     min-height:100vh; justify-content:center; padding-top:64px;
+    background:var(--black);
+  }
+  .hero::before{
+    content:''; position:absolute; inset:-12% -6%; z-index:-2;
     background-image: linear-gradient(180deg, rgba(13,6,5,0.4) 0%, rgba(13,6,5,0.6) 55%, rgba(13,6,5,0.94) 100%), var(--img-hero);
     background-size:cover; background-position:center 32%;
+    transform:translateY(var(--parallax, 0px));
+    will-change:transform;
   }
   .hero .date-tag{ margin:22px 0 6px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:0.1em; color:var(--rose-line); }
   .names{ margin-top:18px; }
-  .names .name{ font-size:clamp(44px,11vw,84px); color:var(--ivory); }
+  .names .name{
+    font-size:clamp(44px,11vw,84px);
+    background:linear-gradient(100deg, var(--ivory) 42%, var(--rose-line) 50%, var(--ivory) 58%);
+    background-size:230% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 7s ease-in-out infinite;
+  }
+  @keyframes shimmer{ 0%{ background-position:200% 0; } 100%{ background-position:-40% 0; } }
   .names .amp{ font-family:'Cormorant Garamond', serif; font-size:clamp(22px,4vw,30px); color:var(--rose-line); margin:2px 0; display:block; }
   .hero .sub{ margin-top:26px; max-width:360px; opacity:0.85; }
   .scroll-cue{ position:absolute; bottom:30px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--rose-line); opacity:0.8; }
@@ -168,7 +200,11 @@
   .date-lockup .day{ font-family:'Cinzel', serif; font-size:13px; letter-spacing:0.34em; text-transform:uppercase; color:var(--rose-line); margin-bottom:8px; }
   .date-lockup .full-date{ font-size:clamp(32px,7vw,52px); color:var(--ivory); }
   .countdown{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(8px,2vw,16px); max-width:460px; width:100%; }
-  .cd-cell{ border:1px solid rgba(246,240,232,0.28); padding:clamp(14px,3vw,22px) 4px; position:relative; }
+  .cd-cell{ border:1px solid rgba(246,240,232,0.28); padding:clamp(14px,3vw,22px) 4px; position:relative; animation:cell-glow 3.4s ease-in-out infinite; }
+  .cd-cell:nth-child(2){ animation-delay:0.3s; }
+  .cd-cell:nth-child(3){ animation-delay:0.6s; }
+  .cd-cell:nth-child(4){ animation-delay:0.9s; }
+  @keyframes cell-glow{ 0%,100%{ box-shadow:0 0 0 rgba(201,143,138,0); border-color:rgba(246,240,232,0.28); } 50%{ box-shadow:0 0 16px rgba(201,143,138,0.28); border-color:rgba(201,143,138,0.55); } }
   .cd-cell::before, .cd-cell::after{ content:''; position:absolute; width:8px; height:8px; border:1px solid var(--rose-line); }
   .cd-cell::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
   .cd-cell::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
@@ -191,7 +227,8 @@
   .contact-btn{ margin-top:18px; display:inline-block; padding:14px 34px; border:1px solid var(--ivory); color:var(--ivory); text-decoration:none; font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.24em; text-transform:uppercase; transition:background 0.3s ease, color 0.3s ease; }
   .contact-btn:hover{ background:var(--ivory); color:var(--maroon-900); }
 
-  .ornament-strip{ margin-top:56px; width:100%; max-width:320px; opacity:0.7; }
+  .ornament-strip{ margin-top:56px; width:100%; max-width:320px; opacity:0.7; animation:sway 5.5s ease-in-out infinite; transform-origin:center; }
+  @keyframes sway{ 0%,100%{ transform:rotate(0deg); } 50%{ transform:rotate(1.4deg); } }
 
   /* ---------- location ---------- */
   .map-card{ width:100%; max-width:420px; margin-top:30px; border:1px solid rgba(246,240,232,0.3); text-decoration:none; color:inherit; display:block; overflow:hidden; transition:transform 0.35s ease, border-color 0.35s ease; }
@@ -200,7 +237,8 @@
       linear-gradient(rgba(13,6,5,0.6), rgba(13,6,5,0.8)),
       repeating-linear-gradient(0deg, rgba(246,240,232,0.08) 0 1px, transparent 1px 32px),
       repeating-linear-gradient(90deg, rgba(246,240,232,0.08) 0 1px, transparent 1px 32px); }
-  .map-pin{ position:absolute; top:50%; left:50%; transform:translate(-50%,-100%); }
+  .map-pin{ position:absolute; top:50%; left:50%; transform:translate(-50%,-100%); animation:pin-bob 2.6s ease-in-out infinite; }
+  @keyframes pin-bob{ 0%,100%{ transform:translate(-50%,-100%); } 50%{ transform:translate(-50%,-114%); } }
   .map-pin svg{ width:32px; height:32px; filter:drop-shadow(0 6px 10px rgba(0,0,0,0.5)); }
   .map-pin-pulse{ position:absolute; top:50%; left:50%; width:14px; height:14px; margin:-7px 0 0 -7px; border-radius:50%; background:rgba(201,143,138,0.5); animation:pulse 2.2s ease-out infinite; }
   @keyframes pulse{ 0%{ transform:scale(0.6); opacity:0.8;} 100%{ transform:scale(3.2); opacity:0;} }
@@ -231,6 +269,7 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero dark" id="hero">
+    <div class="petals" id="petalsHero"></div>
     <p class="eyebrow reveal">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
       Our Nikkah
@@ -400,6 +439,7 @@
 
   <!-- ============ FOOTER ============ -->
   <section class="dark footer-section" id="footer">
+    <div class="petals" id="petalsFooter"></div>
     <div class="footer-photo reveal"></div>
     <p class="eyebrow reveal delay-1" style="margin-top:18px;">With Love &amp; Blessings</p>
     <p class="names-sm display reveal delay-2">Rishal Ahammed K &amp; Susmi K</p>
@@ -425,6 +465,36 @@
   }
   document.addEventListener('scroll', updateProgress, { passive:true });
   updateProgress();
+
+  // ---------- hero parallax ----------
+  const heroEl = document.getElementById('hero');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function updateParallax(){
+    if(!heroEl || reduceMotion) return;
+    const rect = heroEl.getBoundingClientRect();
+    const offset = rect.top * 0.22;
+    heroEl.style.setProperty('--parallax', offset + 'px');
+  }
+  document.addEventListener('scroll', updateParallax, { passive:true });
+  updateParallax();
+
+  // ---------- falling petals ----------
+  function seedPetals(container, count){
+    if(!container || reduceMotion) return;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'petal';
+      p.style.left = Math.random()*100 + '%';
+      p.style.setProperty('--drift', (Math.random()*60 - 30) + 'px');
+      p.style.animationDuration = (9 + Math.random()*7) + 's';
+      p.style.animationDelay = (Math.random()*-14) + 's';
+      p.style.opacity = 0.35 + Math.random()*0.3;
+      p.style.transform = `rotate(${Math.floor(Math.random()*360)}deg)`;
+      container.appendChild(p);
+    }
+  }
+  seedPetals(document.getElementById('petalsHero'), 12);
+  seedPetals(document.getElementById('petalsFooter'), 8);
 
   const TARGET = new Date('2026-09-12T10:00:00');
   const dEl = document.getElementById('cd-days');
