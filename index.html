@@ -7,7 +7,7 @@
 <title>Rishal &amp; Susmi &middot; The Nikkah &middot; 12th September 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600;1,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600;1,700&family=Fraunces:opsz,wght@9..144,600;9..144,800;9..144,900&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --black:#0d0605;
@@ -45,6 +45,7 @@
     margin:0 auto;
     position:relative;
     box-shadow:0 40px 90px -30px rgba(0,0,0,0.85);
+    perspective:1400px;
   }
 
   .eyebrow{
@@ -65,6 +66,17 @@
     font-weight:500;
   }
 
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:900;
+    font-size:clamp(30px,7vw,44px);
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    line-height:1;
+    margin-top:10px;
+  }
+
   .display{
     font-family:'Cormorant Garamond', serif;
     font-weight:600;
@@ -79,25 +91,27 @@
   }
 
   /* ---------- reveal ---------- */
-  .reveal{ opacity:0; transform:translateY(26px); transition:opacity 0.95s cubic-bezier(.2,.7,.2,1), transform 0.95s cubic-bezier(.2,.7,.2,1); }
-  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .reveal{
+    opacity:0; transform:translateY(30px) rotateX(-10deg); transform-origin:50% 100%;
+    transition:opacity 0.95s cubic-bezier(.2,.7,.2,1), transform 0.95s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0) rotateX(0deg); }
   .reveal.delay-1{ transition-delay:0.12s; }
   .reveal.delay-2{ transition-delay:0.26s; }
   .reveal.delay-3{ transition-delay:0.4s; }
 
-  .rose-medallion.reveal, .dress-banner.reveal, .footer-photo.reveal{ transform:translateY(22px) scale(0.82); transition:opacity 1.05s cubic-bezier(.2,.7,.2,1), transform 1.05s cubic-bezier(.2,.7,.2,1); }
-  .rose-medallion.reveal.in-view, .dress-banner.reveal.in-view, .footer-photo.reveal.in-view{ transform:translateY(0) scale(1); }
+  .rose-medallion.reveal, .dress-banner.reveal, .footer-photo.reveal{ transform:translateY(22px) rotateX(-14deg) scale(0.82); transition:opacity 1.05s cubic-bezier(.2,.7,.2,1), transform 1.05s cubic-bezier(.2,.7,.2,1); }
+  .rose-medallion.reveal.in-view, .dress-banner.reveal.in-view, .footer-photo.reveal.in-view{ transform:translateY(0) rotateX(0deg) scale(1); }
 
   /* ---------- petals ---------- */
   .petals{ position:absolute; inset:0; overflow:hidden; z-index:1; pointer-events:none; }
   .petal{
-    position:absolute; top:-8%; width:9px; height:13px; background:var(--rose-line);
-    border-radius:60% 4% 60% 4%; opacity:0; animation:fall linear infinite;
+    position:absolute; top:-8%; width:20px; height:20px; opacity:0; animation:fall linear infinite;
   }
   @keyframes fall{
     0%{ opacity:0; transform:translateY(-10%) translateX(0) rotate(0deg); }
-    8%{ opacity:0.6; }
-    88%{ opacity:0.35; }
+    8%{ opacity:0.75; }
+    88%{ opacity:0.45; }
     100%{ opacity:0; transform:translateY(720%) translateX(var(--drift,24px)) rotate(300deg); }
   }
 
@@ -121,7 +135,7 @@
   .torn{ position:absolute; left:0; width:100%; height:44px; line-height:0; z-index:2; }
   .torn.top{ top:-1px; }
   .torn.bottom{ bottom:-1px; transform:scaleY(-1); }
-  .torn svg{ width:100%; height:100%; display:block; animation:paper-sway 5s ease-in-out infinite; }
+  .torn svg{ width:100%; height:100%; display:block; animation:paper-sway 5s ease-in-out infinite; filter:drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
   @keyframes paper-sway{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
 
   /* ---------- rose line-art (signature accents) ---------- */
@@ -133,10 +147,10 @@
 
   /* ---------- rose photography accents ---------- */
   .photo-accent{
-    position:absolute; width:210px; height:210px; background-size:cover; background-position:center;
-    -webkit-mask-image:radial-gradient(circle at center, black 34%, transparent 70%);
-    mask-image:radial-gradient(circle at center, black 34%, transparent 70%);
-    opacity:0.9; pointer-events:none; z-index:-1;
+    position:absolute; width:230px; height:230px; background-size:cover; background-position:center;
+    -webkit-mask-image:radial-gradient(circle at center, black 48%, transparent 82%);
+    mask-image:radial-gradient(circle at center, black 48%, transparent 82%);
+    opacity:0.95; pointer-events:none; z-index:-1;
   }
   .photo-accent.tl{ top:-36px; left:-40px; animation:breathe 7s ease-in-out infinite; }
   .photo-accent.br{ bottom:-36px; right:-40px; animation:breathe 7s ease-in-out infinite 1s; }
@@ -163,6 +177,10 @@
     mask-image:radial-gradient(circle at center, black 55%, transparent 78%);
   }
 
+  .hero-canvas{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+
+  .tilt-3d{ transform-style:preserve-3d; will-change:transform; transition:transform 0.5s cubic-bezier(.2,.7,.2,1); }
+
   /* ---------- hero ---------- */
   .hero{
     min-height:100vh; justify-content:center; padding-top:64px;
@@ -177,19 +195,20 @@
   }
   .hero .date-tag{ margin:22px 0 6px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15px; letter-spacing:0.1em; color:var(--rose-line); }
   .names{ margin-top:18px; }
-  .names .name{
-    font-size:clamp(44px,11vw,84px);
-    background:linear-gradient(100deg, var(--ivory) 42%, var(--rose-line) 50%, var(--ivory) 58%);
-    background-size:230% 100%;
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    animation:shimmer 7s ease-in-out infinite;
-  }
-  @keyframes shimmer{ 0%{ background-position:200% 0; } 100%{ background-position:-40% 0; } }
+  .names .name{ font-size:clamp(44px,11vw,84px); color:var(--ivory); display:inline-block; animation:glow-text 4.5s ease-in-out infinite; }
+  @keyframes glow-text{ 0%,100%{ text-shadow:0 0 0 rgba(201,143,138,0); } 50%{ text-shadow:0 0 24px rgba(201,143,138,0.5); } }
   .names .amp{ font-family:'Cormorant Garamond', serif; font-size:clamp(22px,4vw,30px); color:var(--rose-line); margin:2px 0; display:block; }
   .hero .sub{ margin-top:26px; max-width:360px; opacity:0.85; }
   .scroll-cue{ position:absolute; bottom:30px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--rose-line); opacity:0.8; }
   .scroll-cue .line{ width:1px; height:32px; background:linear-gradient(var(--rose-line), transparent); animation:drift 1.9s ease-in-out infinite; }
   @keyframes drift{ 0%,100%{ transform:translateY(0); opacity:0.55;} 50%{ transform:translateY(8px); opacity:1;} }
+
+  /* ---------- rose interlude ---------- */
+  .rose-interlude{
+    min-height:46vh; padding:0 !important;
+    background-image: linear-gradient(180deg, rgba(35,5,8,0.92) 0%, rgba(35,5,8,0.1) 22%, rgba(13,6,5,0.05) 55%, rgba(13,6,5,0.92) 100%), var(--img-bloom);
+    background-size:cover; background-position:center 38%;
+  }
 
   /* ---------- verse ---------- */
   .verse-text{ max-width:420px; margin-top:26px; font-size:clamp(20px,3vw,26px); }
@@ -200,7 +219,7 @@
   .date-lockup .day{ font-family:'Cinzel', serif; font-size:13px; letter-spacing:0.34em; text-transform:uppercase; color:var(--rose-line); margin-bottom:8px; }
   .date-lockup .full-date{ font-size:clamp(32px,7vw,52px); color:var(--ivory); }
   .countdown{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(8px,2vw,16px); max-width:460px; width:100%; }
-  .cd-cell{ border:1px solid rgba(246,240,232,0.28); padding:clamp(14px,3vw,22px) 4px; position:relative; animation:cell-glow 3.4s ease-in-out infinite; }
+  .cd-cell{ border:1px solid rgba(246,240,232,0.28); padding:clamp(14px,3vw,22px) 4px; position:relative; perspective:340px; animation:cell-glow 3.4s ease-in-out infinite; }
   .cd-cell:nth-child(2){ animation-delay:0.3s; }
   .cd-cell:nth-child(3){ animation-delay:0.6s; }
   .cd-cell:nth-child(4){ animation-delay:0.9s; }
@@ -208,8 +227,12 @@
   .cd-cell::before, .cd-cell::after{ content:''; position:absolute; width:8px; height:8px; border:1px solid var(--rose-line); }
   .cd-cell::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
   .cd-cell::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
-  .cd-num{ font-family:'Cinzel', serif; font-weight:600; letter-spacing:0.02em; font-size:clamp(24px,5.6vw,40px); color:var(--ivory); transition:transform 0.4s ease, opacity 0.4s ease; }
-  .cd-num.tick{ transform:translateY(-6px); opacity:0.35; }
+  .cd-num{
+    font-family:'Cinzel', serif; font-weight:600; letter-spacing:0.02em; font-size:clamp(24px,5.6vw,40px); color:var(--ivory);
+    display:inline-block; transform-style:preserve-3d; backface-visibility:hidden;
+    transition:transform 0.45s cubic-bezier(.3,0,.2,1), opacity 0.45s ease;
+  }
+  .cd-num.tick{ transform:rotateX(94deg); opacity:0.25; }
   .cd-label{ margin-top:6px; font-family:'Cinzel', serif; font-size:9px; letter-spacing:0.26em; text-transform:uppercase; color:var(--rose-line); }
 
   /* ---------- the day / details rows ---------- */
@@ -269,7 +292,7 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero dark" id="hero">
-    <div class="petals" id="petalsHero"></div>
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
     <p class="eyebrow reveal">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
       Our Nikkah
@@ -295,7 +318,7 @@
 
   <!-- ============ VERSE ============ -->
   <section class="light" id="verse">
-    <div class="rose-medallion reveal"></div>
+    <div class="rose-medallion tilt-3d reveal"></div>
     <p class="eyebrow reveal">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
       A Blessing
@@ -309,6 +332,14 @@
     </div>
   </section>
 
+  <!-- ============ ROSE INTERLUDE ============ -->
+  <section class="dark rose-interlude" id="rose-interlude" aria-hidden="true">
+    <div class="petals" id="petalsInterlude"></div>
+    <div class="torn bottom" aria-hidden="true">
+      <svg viewBox="0 0 500 40" preserveAspectRatio="none"><path d="M0,40 L0,14 L20,24 L46,6 L74,20 L100,4 L128,22 L156,8 L182,26 L210,10 L236,22 L264,4 L290,18 L318,6 L344,24 L372,8 L398,20 L424,4 L452,22 L478,10 L500,18 L500,40 Z" fill="#0d0605"/></svg>
+    </div>
+  </section>
+
   <!-- ============ COUNTDOWN ============ -->
   <section class="dark" id="countdown-section">
     <div class="photo-accent tl" style="background-image:var(--img-hero);"></div>
@@ -318,15 +349,16 @@
       Counting Down
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
     </p>
+    <p class="section-title reveal delay-1">Countdown</p>
     <div class="date-lockup reveal delay-1">
       <p class="day">Saturday</p>
       <p class="full-date display">12 &middot; 09 &middot; 2026</p>
     </div>
     <div class="countdown reveal delay-2">
-      <div class="cd-cell"><div class="cd-num" id="cd-days">00</div><div class="cd-label">Days</div></div>
-      <div class="cd-cell"><div class="cd-num" id="cd-hours">00</div><div class="cd-label">Hours</div></div>
-      <div class="cd-cell"><div class="cd-num" id="cd-mins">00</div><div class="cd-label">Minutes</div></div>
-      <div class="cd-cell"><div class="cd-num" id="cd-secs">00</div><div class="cd-label">Seconds</div></div>
+      <div class="cd-cell tilt-3d"><div class="cd-num" id="cd-days">00</div><div class="cd-label">Days</div></div>
+      <div class="cd-cell tilt-3d"><div class="cd-num" id="cd-hours">00</div><div class="cd-label">Hours</div></div>
+      <div class="cd-cell tilt-3d"><div class="cd-num" id="cd-mins">00</div><div class="cd-label">Minutes</div></div>
+      <div class="cd-cell tilt-3d"><div class="cd-num" id="cd-secs">00</div><div class="cd-label">Seconds</div></div>
     </div>
 
     <div class="torn bottom" aria-hidden="true">
@@ -342,6 +374,7 @@
       The Day
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
     </p>
+    <p class="section-title reveal">Details</p>
     <p class="lede reveal delay-1" style="margin-top:12px; opacity:0.75;">You are lovingly invited to witness and bless our union</p>
 
     <div class="detail-rows">
@@ -362,7 +395,8 @@
       Dress Code
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
     </p>
-    <div class="dress-banner reveal delay-1"></div>
+    <p class="section-title reveal">Attire</p>
+    <div class="dress-banner tilt-3d reveal delay-1"></div>
     <p class="lede reveal delay-2" style="margin-top:12px; max-width:320px; opacity:0.75;">We&rsquo;d be delighted if you kept to our colour palette on the day</p>
     <div class="palette reveal delay-3">
       <span class="swatch" style="background:#390911;"></span>
@@ -383,6 +417,7 @@
       Questions
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
     </p>
+    <p class="section-title reveal">Contact</p>
     <p class="lede reveal delay-1" style="margin-top:12px; max-width:320px; opacity:0.85;">For anything at all on the day, please reach out to our family coordinator</p>
     <p class="contact-line reveal delay-2">Nidhal P &middot; +91 81298 85187</p>
     <a class="contact-btn reveal delay-3" href="tel:+918129885187">Call the Coordinator</a>
@@ -411,9 +446,10 @@
       Location
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
     </p>
+    <p class="section-title reveal">Location</p>
     <p class="lede reveal delay-1" style="margin-top:12px; opacity:0.8;">Tap below for directions</p>
 
-    <a class="map-card reveal delay-2" href="https://maps.app.goo.gl/kCMV2BLWNxwL3S3F6" target="_blank" rel="noopener">
+    <a class="map-card tilt-3d reveal delay-2" href="https://maps.app.goo.gl/kCMV2BLWNxwL3S3F6" target="_blank" rel="noopener">
       <div class="map-visual">
         <div class="map-pin-pulse"></div>
         <div class="map-pin">
@@ -449,6 +485,7 @@
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
@@ -478,22 +515,146 @@
   document.addEventListener('scroll', updateParallax, { passive:true });
   updateParallax();
 
-  // ---------- falling petals ----------
+  // ---------- 3D petal field (Three.js) ----------
+  function initHeroScene(){
+    const canvas = document.getElementById('heroCanvas');
+    if(!canvas || reduceMotion || typeof THREE === 'undefined' || !heroEl) return;
+    let width = heroEl.clientWidth, height = heroEl.clientHeight;
+    if(width === 0 || height === 0) return;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(width, height);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
+    camera.position.set(0, 0, 13);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
+    dirLight.position.set(3, 5, 6);
+    scene.add(dirLight);
+
+    const COUNT = 70;
+    const geometry = new THREE.CircleGeometry(0.34, 5);
+    const material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, roughness:0.55, metalness:0.05 });
+    const mesh = new THREE.InstancedMesh(geometry, material, COUNT);
+    const dummy = new THREE.Object3D();
+    const palette = [0xc98f8a, 0x9c1c28, 0x7c1420, 0xf6f0e8, 0x5c0f18];
+    const petals = [];
+
+    for(let i=0;i<COUNT;i++){
+      const p = {
+        x:(Math.random()-0.5)*15,
+        y:Math.random()*16 - 8,
+        z:(Math.random()-0.5)*9 - 2,
+        speed:0.35 + Math.random()*0.55,
+        rx:Math.random()*Math.PI, ry:Math.random()*Math.PI, rz:Math.random()*Math.PI,
+        rSpeed:(Math.random()-0.5)*0.015,
+        scale:0.55 + Math.random()*0.85
+      };
+      petals.push(p);
+      dummy.position.set(p.x, p.y, p.z);
+      dummy.rotation.set(p.rx, p.ry, p.rz);
+      dummy.scale.setScalar(p.scale);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+      mesh.setColorAt(i, new THREE.Color(palette[i % palette.length]));
+    }
+    scene.add(mesh);
+
+    let targetX = 0, targetY = 0;
+    window.addEventListener('pointermove', (e)=>{
+      targetX = (e.clientX / window.innerWidth - 0.5) * 1.6;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 1.1;
+    }, { passive:true });
+
+    let running = true;
+    const clock = new THREE.Clock();
+    function animate(){
+      if(!running) return;
+      const dt = Math.min(clock.getDelta(), 0.05);
+      for(let i=0;i<COUNT;i++){
+        const p = petals[i];
+        p.y -= p.speed * dt;
+        if(p.y < -8) p.y = 8;
+        p.rx += p.rSpeed;
+        p.ry += p.rSpeed * 0.8;
+        dummy.position.set(p.x, p.y, p.z);
+        dummy.rotation.set(p.rx, p.ry, p.rz);
+        dummy.scale.setScalar(p.scale);
+        dummy.updateMatrix();
+        mesh.setMatrixAt(i, dummy.matrix);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+      camera.position.x += (targetX - camera.position.x) * 0.03;
+      camera.position.y += (-targetY - camera.position.y) * 0.03;
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', ()=>{
+      if(!heroEl) return;
+      width = heroEl.clientWidth; height = heroEl.clientHeight;
+      if(width === 0 || height === 0) return;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+
+    document.addEventListener('visibilitychange', ()=>{
+      running = document.visibilityState === 'visible';
+      if(running) animate();
+    });
+  }
+  initHeroScene();
+
+  // ---------- pointer 3D tilt ----------
+  function attachTilt(el, maxDeg){
+    if(!el || reduceMotion) return;
+    function onMove(e){
+      const rect = el.getBoundingClientRect();
+      const px = (e.clientX - (rect.left + rect.width/2)) / (rect.width/2);
+      const py = (e.clientY - (rect.top + rect.height/2)) / (rect.height/2);
+      const rotY = Math.max(-1, Math.min(1, px)) * maxDeg;
+      const rotX = Math.max(-1, Math.min(1, -py)) * maxDeg;
+      el.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(6px)`;
+    }
+    function onLeave(){
+      el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+    }
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerleave', onLeave);
+  }
+  document.querySelectorAll('.tilt-3d').forEach(el => attachTilt(el, el.classList.contains('map-card') ? 9 : 14));
+
+  // ---------- falling flowers ----------
+  const FLOWER_SVG = '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g>' +
+    '<circle cx="16" cy="10" r="6.2" fill="COLOR" fill-opacity="0.85"/>' +
+    '<circle cx="9" cy="19" r="6.2" fill="COLOR" fill-opacity="0.85"/>' +
+    '<circle cx="23" cy="19" r="6.2" fill="COLOR" fill-opacity="0.85"/>' +
+    '<circle cx="16" cy="16" r="4.6" fill="#f6f0e8" fill-opacity="0.9"/>' +
+    '</g></svg>';
   function seedPetals(container, count){
     if(!container || reduceMotion) return;
+    const colors = ['#c98f8a', '#9c1c28', '#7c1420'];
     for(let i=0;i<count;i++){
       const p = document.createElement('span');
       p.className = 'petal';
+      const color = colors[i % colors.length];
+      p.innerHTML = FLOWER_SVG.split('COLOR').join(color);
       p.style.left = Math.random()*100 + '%';
+      p.style.width = (14 + Math.random()*10) + 'px';
+      p.style.height = p.style.width;
       p.style.setProperty('--drift', (Math.random()*60 - 30) + 'px');
-      p.style.animationDuration = (9 + Math.random()*7) + 's';
-      p.style.animationDelay = (Math.random()*-14) + 's';
-      p.style.opacity = 0.35 + Math.random()*0.3;
-      p.style.transform = `rotate(${Math.floor(Math.random()*360)}deg)`;
+      p.style.animationDuration = (10 + Math.random()*8) + 's';
+      p.style.animationDelay = (Math.random()*-16) + 's';
       container.appendChild(p);
     }
   }
-  seedPetals(document.getElementById('petalsHero'), 12);
+  seedPetals(document.getElementById('petalsInterlude'), 10);
   seedPetals(document.getElementById('petalsFooter'), 8);
 
   const TARGET = new Date('2026-09-12T10:00:00');
