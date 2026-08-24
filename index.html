@@ -99,12 +99,13 @@
   }
   .light .eyebrow{ color:var(--crimson-600); }
   .dark .eyebrow, .maroon .eyebrow{ color:var(--rose-line); }
+  .light .map-cta{ color:var(--crimson-600); }
 
   /* torn paper edge */
   .torn{ position:absolute; left:0; width:100%; height:44px; line-height:0; z-index:2; }
   .torn.top{ top:-1px; }
   .torn.bottom{ bottom:-1px; transform:scaleY(-1); }
-  .torn svg{ width:100%; height:100%; display:block; }
+  .torn svg{ width:100%; height:100%; display:block; animation:paper-sway 5s ease-in-out infinite; filter:drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
 
   /* ---------- rose line-art (signature accents) ---------- */
   .rose{ width:64px; height:64px; }
@@ -194,7 +195,7 @@
   .ornament-strip{ margin-top:56px; width:100%; max-width:320px; opacity:0.7; }
 
   /* ---------- location ---------- */
-  .map-card{ width:100%; max-width:420px; margin-top:30px; border:1px solid rgba(246,240,232,0.3); text-decoration:none; color:inherit; display:block; overflow:hidden; transition:transform 0.35s ease, border-color 0.35s ease; }
+  .map-card{ width:100%; max-width:420px; margin-top:30px; border:1px solid rgba(57,9,17,0.3); text-decoration:none; color:inherit; display:block; overflow:hidden; transition:transform 0.35s ease, border-color 0.35s ease; }
   .map-card:hover, .map-card:focus-visible{ transform:translateY(-4px); border-color:var(--rose-line); }
   .map-visual{ height:140px; position:relative; background:
       linear-gradient(rgba(13,6,5,0.6), rgba(13,6,5,0.8)),
@@ -245,7 +246,7 @@
       <span class="display name">Susmi&nbsp;K</span>
     </div>
 
-    <p class="lede sub reveal delay-3">Together with their families, request the honour of your presence as they begin their journey, God willing</p>
+    <p class="lede sub reveal delay-3">Together with our families, we request the honour of your presence as we begin our journey, God willing</p>
 
     <div class="scroll-cue"><span>Scroll</span><div class="line"></div></div>
 
@@ -317,7 +318,7 @@
   </section>
 
   <!-- ============ DRESS CODE ============ -->
-  <section class="light" style="padding-top:56px;" id="dress-code">
+  <!-- <section class="light" style="padding-top:56px;" id="dress-code">
     <p class="eyebrow reveal">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
       Dress Code
@@ -335,7 +336,7 @@
     <div class="torn bottom" aria-hidden="true">
       <svg viewBox="0 0 500 40" preserveAspectRatio="none"><path d="M0,40 L0,14 L20,24 L46,6 L74,20 L100,4 L128,22 L156,8 L182,26 L210,10 L236,22 L264,4 L290,18 L318,6 L344,24 L372,8 L398,20 L424,4 L452,22 L478,10 L500,18 L500,40 Z" fill="#5c0f18"/></svg>
     </div>
-  </section>
+  </section> -->
 
   <!-- ============ ORGANIZER / QUESTIONS (maroon) ============ -->
   <section class="maroon" id="organizer" style="padding-top:64px;">
@@ -360,13 +361,13 @@
     </svg>
 
     <div class="torn bottom" aria-hidden="true">
-      <svg viewBox="0 0 500 40" preserveAspectRatio="none"><path d="M0,40 L0,14 L20,24 L46,6 L74,20 L100,4 L128,22 L156,8 L182,26 L210,10 L236,22 L264,4 L290,18 L318,6 L344,24 L372,8 L398,20 L424,4 L452,22 L478,10 L500,18 L500,40 Z" fill="#0d0605"/></svg>
+      <svg viewBox="0 0 500 40" preserveAspectRatio="none"><path d="M0,40 L0,14 L20,24 L46,6 L74,20 L100,4 L128,22 L156,8 L182,26 L210,10 L236,22 L264,4 L290,18 L318,6 L344,24 L372,8 L398,20 L424,4 L452,22 L478,10 L500,18 L500,40 Z" fill="#f6f0e8"/></svg>
     </div>
   </section>
 
   <!-- ============ LOCATION ============ -->
-  <section class="dark" id="location" style="padding-top:64px;">
-    <div class="photo-accent tl" style="background-image:var(--img-bloom);"></div>
+  <section class="light" id="location" style="padding-top:64px;">
+    <div class="photo-accent tl" style="background-image:var(--img-bloom); opacity:0.6;"></div>
     <p class="eyebrow reveal">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 C13 8 16 11 22 12 C16 13 13 16 12 22 C11 16 8 13 2 12 C8 11 11 8 12 2 Z"/></svg>
       Location
