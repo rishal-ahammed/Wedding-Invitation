@@ -82,12 +82,60 @@
             text-transform: uppercase;
         }
 
+        .names-wrap {
+            position: relative;
+            padding: 2.5rem 1rem 3rem;
+            margin: 1.5rem 0;
+        }
+
+        .names-wrap::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: min(120%, 640px);
+            height: 220px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse at center, rgba(197,160,89,0.14), transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .name-flourish {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .name-flourish::before,
+        .name-flourish::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+
+        .name-flourish::after {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .name-flourish span {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
         .names {
             font-size: clamp(3rem, 8vw, 6rem);
             line-height: 1.45;
             letter-spacing: 0.5px;
             margin-bottom: 1.25rem;
             color: var(--forest-green);
+            font-weight: 600;
+            text-shadow: 0 2px 24px rgba(197,160,89,0.25);
         }
 
         .ampersand {
@@ -153,6 +201,24 @@
                 font-size: 0.85rem;
                 letter-spacing: 2px;
                 margin-bottom: 1.25rem;
+            }
+
+            .names-wrap {
+                padding: 1.5rem 0.5rem 2rem;
+                margin: 1rem 0;
+            }
+
+            .names-wrap::before {
+                height: 160px;
+            }
+
+            .name-flourish {
+                margin-bottom: 1rem;
+            }
+
+            .name-flourish::before,
+            .name-flourish::after {
+                width: 32px;
             }
 
             .names {
@@ -755,7 +821,11 @@
     <section class="section hero">
         <div class="bismillah gsap-reveal">In the name of Allah, the Most Gracious, the Most Merciful</div>
         <h3 class="gsap-reveal">Together with their families</h3>
-        <h1 class="names gsap-reveal">Rishal Ahammed <span class="ampersand">&</span> Susmi</h1>
+        <div class="names-wrap gsap-reveal">
+            <div class="name-flourish"><span></span></div>
+            <h1 class="names">Rishal Ahammed <span class="ampersand">&</span> Susmi</h1>
+            <div class="name-flourish"><span></span></div>
+        </div>
         <p class="gsap-reveal" style="font-size: 1.2rem; margin-top: 1rem; font-style: italic;">Joyfully invite you to witness their Nikkah</p>
 
         <div class="date-box gsap-reveal">
