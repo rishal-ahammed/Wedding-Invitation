@@ -84,8 +84,9 @@
 
         .names {
             font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1.2;
-            margin-bottom: 1rem;
+            line-height: 1.45;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
             color: var(--forest-green);
         }
 
@@ -156,8 +157,9 @@
 
             .names {
                 font-size: clamp(2.1rem, 10vw, 2.8rem);
-                letter-spacing: 0.5px;
-                margin-bottom: 0.5rem;
+                line-height: 1.5;
+                letter-spacing: 0.3px;
+                margin-bottom: 0.75rem;
             }
 
             .hero p {
@@ -682,6 +684,54 @@
             font-family: 'Cinzel', serif;
         }
 
+        /* Falling Leaves */
+        .leaves-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .leaf-wrap {
+            position: absolute;
+            top: -10%;
+            animation-name: leafFall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        .leaf-sway {
+            animation-name: leafSway;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .leaf-svg {
+            display: block;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.08));
+        }
+
+        @keyframes leafFall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        @keyframes leafSway {
+            0% { transform: translateX(-18px) rotate(-8deg); }
+            100% { transform: translateX(18px) rotate(8deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .leaves-container {
+                display: none;
+            }
+        }
+
         /* Animation Classes */
         .gsap-reveal {
             opacity: 0;
@@ -696,6 +746,10 @@
     </style>
 </head>
 <body>
+
+    <!-- Falling Leaves (decorative, whole page) -->
+    <div class="leaves-container" id="leaves" aria-hidden="true"></div>
+
 
     <!-- Hero Section -->
     <section class="section hero">
@@ -892,6 +946,45 @@
 
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        // Falling Leaves
+        (function () {
+            const container = document.getElementById("leaves");
+            if (!container) return;
+
+            const leafPath = "M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17 1 .3 1.94.3C15 19.99 18 12 17 8z";
+            const colors = ["var(--gold)", "var(--gold-soft)", "var(--forest-green)"];
+            const leafCount = 14;
+
+            for (let i = 0; i < leafCount; i++) {
+                const wrap = document.createElement("div");
+                wrap.className = "leaf-wrap";
+
+                const left = Math.random() * 100;
+                const fallDuration = 14 + Math.random() * 10; // 14s - 24s
+                const fallDelay = Math.random() * 18;
+                const swayDuration = 3 + Math.random() * 2;
+                const size = 12 + Math.random() * 10;
+
+                wrap.style.left = left + "vw";
+                wrap.style.animationDuration = fallDuration + "s";
+                wrap.style.animationDelay = "-" + fallDelay + "s";
+
+                const sway = document.createElement("div");
+                sway.className = "leaf-sway";
+                sway.style.animationDuration = swayDuration + "s";
+                sway.style.animationDelay = "-" + (Math.random() * swayDuration) + "s";
+
+                sway.innerHTML =
+                    '<svg class="leaf-svg" width="' + size + '" height="' + size +
+                    '" viewBox="0 0 24 24" fill="' + colors[i % colors.length] +
+                    '" style="opacity:' + (0.35 + Math.random() * 0.3) + '">' +
+                    '<path d="' + leafPath + '"/></svg>';
+
+                wrap.appendChild(sway);
+                container.appendChild(wrap);
+            }
+        })();
     </script>
 </body>
 </html>
