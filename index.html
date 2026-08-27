@@ -130,7 +130,7 @@
 
         .names {
             font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1.45;
+            line-height: 1.15;
             letter-spacing: 0.5px;
             margin-bottom: 1.25rem;
             color: var(--forest-green);
@@ -146,6 +146,17 @@
             display: inline-block;
         }
 
+        .name-first,
+        .name-second,
+        .names .ampersand {
+            display: block;
+        }
+
+        .names .ampersand {
+            font-size: 0.4em;
+            margin: 0.6rem 0;
+        }
+
         .date-box {
             margin-top: 3rem;
             padding: 1.5rem 3rem;
@@ -155,8 +166,8 @@
         }
 
         .scroll-cue {
-            position: absolute;
-            bottom: 2.5rem;
+            position: fixed;
+            bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Cinzel', serif;
@@ -165,6 +176,9 @@
             color: var(--gold);
             text-transform: uppercase;
             opacity: 0.8;
+            z-index: 500;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
 
         .scroll-cue::after {
@@ -228,10 +242,9 @@
                 margin-bottom: 0.75rem;
             }
 
-            .name-first,
-            .name-second,
-            .names .ampersand {
-                display: block;
+            .name-first {
+                font-size: clamp(1.4rem, 8.2vw, 2.3rem);
+                white-space: nowrap;
             }
 
             .names .ampersand {
@@ -255,7 +268,12 @@
             }
 
             .scroll-cue {
-                bottom: 1.5rem;
+                bottom: 1.25rem;
+                font-size: 0.65rem;
+            }
+
+            .scroll-cue::after {
+                height: 28px;
             }
         }
 
@@ -680,6 +698,20 @@
             letter-spacing: 2px;
         }
 
+        .love-signature-label {
+            display: block;
+            font-size: 0.42em;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.9rem;
+            font-style: normal;
+        }
+
+        .love-signature-names {
+            display: block;
+        }
+
         .love-signature .ampersand {
             color: var(--gold);
         }
@@ -891,8 +923,9 @@
         <div class="date-box gsap-reveal">
             SEPTEMBER 12, 2026
         </div>
-        <div class="scroll-cue gsap-reveal">Scroll</div>
     </section>
+
+    <div class="scroll-cue" id="scrollCue">Scroll</div>
 
     <!-- Venue & Time Section -->
     <section class="section">
@@ -1006,7 +1039,10 @@
             Thank you for being part of our story so far. Your presence on this day would
             mean the world to us, as we begin this new chapter together, Insha Allah.
         </p>
-        <div class="love-signature gsap-reveal">With love, Rishal <span class="ampersand">&</span> Susmi</div>
+        <div class="love-signature gsap-reveal">
+            <span class="love-signature-label">With love,</span>
+            <span class="love-signature-names">Rishal <span class="ampersand">&</span> Susmi</span>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -1115,6 +1151,18 @@
                 container.appendChild(wrap);
             }
         })();
+
+        // Scroll cue: fade out once the user starts scrolling
+        (function () {
+            const cue = document.getElementById("scrollCue");
+            if (!cue) return;
+            window.addEventListener("scroll", () => {
+                const fadeStart = window.innerHeight * 0.25;
+                const opacity = Math.max(0, 1 - (window.scrollY / fadeStart));
+                cue.style.opacity = (opacity * 0.8).toFixed(2);
+            }, { passive: true });
+        })();
+
         // Scroll-linked Hearts: drift toward center, meeting at the closing note
         const loveSection = document.querySelector(".love-section");
         if (loveSection) {
